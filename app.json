@@ -7,6 +7,9 @@
     "S3_KEY": "",
     "S3_SECRET": "",
     "S3_BUCKET": "",
+    "APPS": {
+      "description": "Semi colon separated string with authorized Heroku apps name"
+    },
     "DURATION": {
       "description": "Seconds to buffer until we write to S3",
       "value": "60"
