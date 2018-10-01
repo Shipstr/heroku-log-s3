@@ -11,12 +11,11 @@ class WriterBase
        "[upload #{$$} #{Thread.current.object_id}] #{msg}\n"
     end
     @io = QueueIO.new
-    @logger.info "initialized singleton"
+    @logger.info "initialized"
     self.start
   end
 
-  def write(app, line)
-    @app ||= app
+  def write(line)
     @io.write(line + "\n")
   end
 
@@ -31,7 +30,7 @@ class WriterBase
   def start
     thread = Thread.new do
       @logger.info "begin thread"
-      stream_to("#{@app}/#{generate_filepath}") until @io.closed?
+      stream_to(generate_filepath) until @io.closed?
       @logger.info "end thread"
     end
 

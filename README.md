@@ -2,15 +2,10 @@
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
-This Gatemedia version :  
- - adds multi-apps support
- - updates the Heroku log parser data.
-
 ## Configure
 
 Setup the following `ENV` (aka `heroku config:set`)
 
-- `APPS` semi colon separated string with authorized apps name (`gm-sittr-staging;gm-greenpeaks-prod;gm-sg-staging`)
 - `FILTER_PREFIX` this is the prefix string to look out for. every other log lines are ignored
 - `S3_KEY`, `S3_SECRET`, `S3_BUCKET` necessary ACL to your s3 bucket
 - `DURATION` (default `60`) seconds to buffer until we close the `IO` to `AWS::S3::S3Object#write`
@@ -21,16 +16,16 @@ Setup the following `ENV` (aka `heroku config:set`)
 
 ## Using
 
-In your heroku app, add this drain (changing `HTTP_USER`, `HTTP_PASSWORD`, `DRAIN_APP_NAME` and `HEROKU_APP_NAME` to appropriate values)
+In your heroku app, add this drain (changing `HTTP_USER`, `HTTP_PASSWORD` and `DRAIN_APP_NAME` to appropriate values)
 
 ```
-heroku drains:add https://HTTP_USER:HTTP_PASSWORD@DRAIN_APP_NAME.herokuapp.com/HEROKU_APP_NAME
+heroku drains:add https://HTTP_USER:HTTP_PASSWORD@DRAIN_APP_NAME.herokuapp.com/
 ```
 
 or if you have no password protection
 
 ```
-heroku drains:add https://DRAIN_APP_NAME.herokuapp.com/HEROKU_APP_NAME
+heroku drains:add https://DRAIN_APP_NAME.herokuapp.com/
 ```
 
 # Credits
