@@ -48,7 +48,7 @@ class App
     string_app_class = classify(app_name)
     registered_apps = APPS.map { |n| classify(app_name) }
 
-    if registered_apps.exclude?(string_app_class)
+    unless registered_apps.include?(string_app_class)
       raise "expected '#{string_app_class}' to be in #{registered_apps.inspect}"
     end
   end
