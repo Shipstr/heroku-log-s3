@@ -31,6 +31,8 @@ class App
     app_name = env['REQUEST_URI'][1..-1]
     lines.each do |line|
       next unless line.start_with?(PREFIX)
+
+      verify_request_app_registered(app_name)
       Object.const_get(classify(app_name)).instance.write(app_name, line[PREFIX_LENGTH..-1]) # WRITER_LIB
     end
 
@@ -40,6 +42,15 @@ class App
 
   ensure
     return [200, { 'Content-Length' => '0' }, []]
+  end
+
+  def verify_request_app_registered(app_name)
+    string_app_class = classify(app_name)
+    registered_apps = APPS.map { |n| classify(app_name) }
+
+    if registered_apps.exclude?(string_app_class)
+      raise "expected '#{string_app_class}' to be in #{registered_apps.inspect}"
+    end
   end
 
   def classify(name)
